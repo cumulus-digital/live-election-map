@@ -1,0 +1,47 @@
+.emap-welcome {
+	font-size: 18px;
+	line-height: 1.25;
+	
+	.emap-w-body {
+		background: #fff;
+		border: 4px solid #ddd;
+		box-shadow: 0 40px 400px 200px alpha($background-color, 0.5);
+		color: #000;
+		left: 50%;
+		padding: 1em;
+		position: absolute;
+		top: 25%;
+		transform: translateX(-50%);
+		width: 400px;
+			max-width: 80%;
+		z-index: 10;
+	}
+	
+	@media all and (max-width: 500px) {
+		font-size: 15px;		
+	}
+	
+	&.emap-closed {
+		display: none;
+	}
+
+}
+	.emap-w-close {
+		background: #ddd;
+		cursor: pointer;
+		font-size: 80%;
+		padding: 4px 8px;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.emap-w-header {
+		color: #a20000;
+		font-size: 133%;
+		font-weight: bold;
+		line-height: 1;
+		margin-bottom: 10px;
+		text-align: center;
+		text-transform: uppercase;
+		text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+	}

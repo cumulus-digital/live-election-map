@@ -1,0 +1,166 @@
+.tt-inner {
+	background: #fff;
+	border: 4px solid #ddd;
+	box-shadow: 4px 4px 0 rgba(0,0,13,0.5);
+	color: #222;
+	left: 0;
+	line-height: 1 !important;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	transition: 0.3s border;
+	z-index: 2;
+	
+	* {
+		box-sizing: border-box !important;
+		font-family: $font-family !important;
+	}
+	
+	/.called-D & { border-color: darken($color_D, 10%); }
+	/.called-R & { border-color: darken($color_R, 10%); }
+	/.called-L & { border-color: darken($color_L, 10%); }
+	/.called-G & { border-color: darken($color_G, 10%); }
+	
+	/.tt-state-votes {
+		background: #CCC;
+		color: #fff;
+		font-size: 14px;
+		font-weight: bold;
+		padding: .4em .5em;
+		position: absolute;
+		right: 0;
+		top: 0;
+		
+		/.called-D & { background: darken($color_D, 10%); }
+		/.called-R & { background: darken($color_R, 10%); }
+		/.called-L & { background: darken($color_L, 10%); }
+		/.called-G & { background: darken($color_G, 10%); }
+	}
+	
+	/.tt-state-name {
+		color: #041438;
+		font-size: 14px;
+		padding: .4em .5em;
+		
+		/.called-D & { color: $color_D; }
+		/.called-R & { color: $color_R; }
+		/.called-L & { color: $color_L; }
+		/.called-G & { color: $color_G; }
+	}
+	
+	/.tt-candidates {
+		display: table;
+		font-size: 18px;
+		overflow: hidden;
+		padding: .25em 0 .5em 0;
+		
+		/.tt-candidate {
+			display: table-row;
+			height: 30px;
+			overflow: hidden;
+			margin: 0;
+			padding: 0;
+			text-align: left;
+			vertical-align: middle;
+			width: 100%;
+			
+			> div {
+				height: 30px;
+			}
+			
+			/.hide-D .tt-D,
+			/.hide-R .tt-R,
+			/.hide-L .tt-L,
+			/.hide-G .tt-G { display: none; }
+			
+			/.called & { color: #aaa; }
+			/.called-D .tt-D,
+			/.called-R .tt-R,
+			/.called-L .tt-L,
+			/.called-G .tt-G {
+				color: #fff;
+				text-shadow: 1px 1px 1px #000;
+			}
+			/.called-D .tt-D { background: darken($color_D, 20%); }
+			/.called-R .tt-R { background: darken($color_R, 20%); }
+			/.called-L .tt-L { background: darken($color_L, 20%); }
+			/.called-G .tt-G { background: darken($color_G, 20%); }
+			
+			/.tt-c-votes {
+				display: none;
+				font-weight: bold;
+				padding: 0 .5em 0 .25em;
+				text-align: right;
+				vertical-align: middle;
+				
+				/.called .tt-c-votes { display: table-cell; }
+			}
+			
+			/.tt-c-thumb {
+				display: table-cell;
+				float: left;
+				margin: 1px;
+				padding-left: .25em;
+				vertical-align: middle;
+				
+				img {
+					border: 1px solid rgba(200,200,200,0.5);
+					height: calc(100% - 2px);
+					margin: 1px;
+				}
+			}
+			
+			/.tt-c-name {
+				display: table-cell;
+				padding: 2px .25em 2px .3em;
+				text-align: left;
+				white-space: nowrap;
+				vertical-align: middle;
+			}
+		}
+	}
+	
+	/.tt-timestamp {
+		color: #888;
+		font-size: 11px;
+		line-height: 150%;
+		padding: 0 .5em 0;
+	}
+}
+
+.tt-arrow {
+	border: 15px solid transparent;
+	border-bottom: none;
+	border-top-color: rgba(0,0,13,0.5);
+	height: 0;
+	left: 0;
+	margin: 4px 0 0 3px;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	width: 0;
+	z-index: 3;
+	
+	&:after {
+		border: @border;
+		border-bottom: @border-bottom;
+		border-top-color: #ddd;
+		content: '';
+		height: 0;
+		left: -19px;
+		position: absolute;
+		top: -19px;
+		transition: 0.3s border;
+		width: 0;
+		z-index: 2;
+		
+		/.called-D & { border-top-color: darken($color_D, 10%); }
+		/.called-R & { border-top-color: darken($color_R, 10%); }
+		/.called-L & { border-top-color: darken($color_L, 10%); }
+		/.called-G & { border-top-color: darken($color_G, 10%); }
+			
+	}
+}

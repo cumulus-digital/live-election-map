@@ -1,0 +1,88 @@
+.election-map {
+	display: block;
+	height: 0;
+	margin: 10px auto 0;
+	opacity: 0.1;
+	padding: 0;
+	padding-bottom: 59%;
+	position: relative;
+	transition: 1s opacity;
+	width: 90%;
+	z-index: 2;
+	
+	@media all and (max-width: 500px) {
+		padding-bottom: 65%;
+		width: 100%;
+	}
+
+	svg {
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+	
+	/.loaded & { opacity: 1; }
+	
+	/.em-state {
+		cursor: pointer;
+		
+		&:hover {
+			.em-fill { stroke-width: 1.5; }
+			.em-label-bg {
+				stroke: #fff;
+			}
+			&:not(.called) {
+				.em-label-bg { stroke: none; fill: #fff; }
+				.em-label-bg ~ .em-label { fill: #000; }
+			}
+		}
+		
+		&.called {
+			animation: stateBlinker 1s linear 3;
+			@keyframes stateBlinker {
+				50% { opacity: 0.75; }
+			}
+
+			.em-label {
+				fill: #fff;
+				text-shadow: 1px 1px 1px #000;
+			}
+			
+			/.called-R {
+				.em-fill, .em-label-bg { fill: $color_R; }
+			}
+			/.called-D {
+				.em-fill, .em-label-bg { fill: $color_D; }
+			}
+			/.called-L {
+				.em-fill, .em-label-bg { fill: $color_L; }
+			}
+			/.called-G {
+				.em-fill, .em-label-bg { fill: $color_G; }
+			}
+		}
+
+		/.em-label-bg {
+			fill: #142448;
+			transition: 0.25s all;
+		}
+
+		/.em-label {
+			fill: #fff;
+			font-family: 'Arvo', sans-serif;
+			font-size: 6.5px;
+			font-weight: normal;
+			pointer-events: none;
+		}
+
+		/.em-fill {
+			fill: alpha(lighten($background-color, 5%), 0.6);
+			stroke: #fff;
+			stroke-width: .3;
+			transition: 0.25s all, 2s fill;
+		}
+
+	}
+}

@@ -1,0 +1,188 @@
+.election-graph {
+	line-height: 1 !important;
+	margin: 0 auto 10px;
+	max-width: 820px;
+	opacity: 0.15;
+	overflow: hidden;
+	padding: 0;
+	position: relative;
+	text-transform: uppercase;
+	transition: 1s all;
+	width: 95%;
+	z-index: 2;
+	
+	* { box-sizing: border-box !important; }
+
+	/.loaded & { opacity: 1; }
+
+	/.egraph-title {
+		color: #fff;
+		font-family: $font-family;
+		font-size: 19px;
+		font-weight: 700;
+		padding: 0;
+		text-align: center;
+		
+			/.egraph-title-small {
+				color: #2c7fc9;
+				font-size: 12px;
+				font-weight: 400;
+				padding: 0 20%;
+			}
+	}
+	
+	/.egraph-candidates {
+		margin-top: -3%;
+		overflow: hidden;
+		position: relative;
+	}
+	
+	/.egraph-bar {
+		border: 1px solid rgba(255,255,255,0.5);
+		border-left: 0;
+		border-right: 0;
+		box-shadow: inset 0 2% 10% rgba(0,0,0,0.6);
+		color: #fff;
+		font-size: 16px;
+		font-weight: normal;
+		height: 33.333333%;
+		left: 0;
+		margin: 0 15%;
+		overflow: hidden;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 70%;
+		z-index: 2;
+		
+		@media all and (max-width: 700px) {
+			/.egraph-bar { font-size: 12px; }
+		}
+		@media all and (max-width: 500px) {
+			/.egraph-bar { font-size: 10px; }
+		}
+		
+		/.egraph-bar-candidate {
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			transition: 1s all;
+			width: 0;
+			z-index: 1;
+			
+			&:after {
+				background-image: linear-gradient(
+					-45deg,
+					rgba(255,255,255,.2) 25%,
+					transparent 25%,
+					transparent 50%,
+					rgba(255,255,255,.2) 50%,
+					rgba(255,255,255,.2) 75%,
+					transparent 75%,
+					transparent
+				);
+				background-size: 50px 50px;
+				content: "";
+				position: absolute;
+				top: 0; left: 0; bottom: 0; right: 0;
+				opacity: 0;
+				overflow: hidden;
+				z-index: 1;
+			}
+			&.egraph-updating:after {
+				animation: cyclebar 1s linear infinite, showbar 1.2s 1;
+			}
+				@keyframes showbar {
+					0% { opacity: 0 }
+					50% { opacity: 1 }
+					100% { opacity: 0 }
+				}
+				@keyframes cyclebar {
+					0% { background-position: 0 0 }
+					100% { background-position: 50px 50px }
+				}
+			
+			span {
+				position: absolute;
+				text-shadow: 1px 1px 1px #000;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			
+			/.egraph-bar-d {
+				background: $color_D
+				span { right: 8px; }
+				
+				/.called-D & {
+					background: lighten(@background, 20%);
+					box-shadow: 5px 0 0 rgba(255,255,255,0.7);
+				}
+			}
+			/.egraph-bar-r {
+				background: $color_R;
+				left: auto;
+				right: 0;
+				span { left: 8px; }
+
+				/.called-R & {
+					background: lighten(@background, 20%);
+					box-shadow: -5px 0 0 rgba(255,255,255,0.7);
+				}
+			}
+		}
+		
+		/.egraph-divider {
+			border: 1px solid #fff;
+			height: 43%;
+			left: 50%;
+			position: absolute;
+			top: 29%;
+			width: 0;
+			z-index: 3;
+		}
+		
+	}
+	
+	/.egraph-candidate {
+		float: left;
+		position: relative;
+		text-align: left;
+		width: 50%;
+		z-index: 2;
+		
+		img {
+			border-radius: 100%;
+			box-shadow: 0 6px 5px $background-color;
+			width: 31%;
+		}
+		
+		/.egraph-name {
+			bottom: 17%;
+			color: rgba(255,255,255,0.8);
+			font-size: 14px;
+			left: 31%;
+			position: absolute;
+			
+			@media all and (max-width: 600px) {
+				/.egraph-name {
+					bottom: 15%;
+					font-size: 11.5px;
+				}
+			}
+			@media all and (max-width: 450px) {
+				/.egraph-name { font-size: 10px; }
+			}
+		}
+		
+		/.egraph-r {
+			float: right;
+			text-align: right;
+			
+			.egraph-name {
+				left: auto;
+				right: 31%;
+			}
+		}
+	}
+}
