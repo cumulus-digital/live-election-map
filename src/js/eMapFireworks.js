@@ -519,7 +519,8 @@
 			}
 		};
 
-	w.launchFireworks = function(team, tMF) {
+	w.launchFireworks = function(team, tMF, numberOfFireworks) {
+		var innerMaxCount = numberOfFireworks || maxCount;
 		teams[team].currentCount = 0;
 		if (teams[team].launching) {
 			log('TEAM IS ALREADY LAUNCHING');
@@ -528,7 +529,7 @@
 		log('LAUNCHING FIREWORKS', team);
 		var eMF = tMF || new Fireworks();
 		function launch(team) {
-			if (teams[team].currentCount > maxCount){
+			if (teams[team].currentCount > innerMaxCount){
 				log('DONE LAUNCHING');
 				teams[team].currentCount = 0;
 				teams[team].launching = false;
@@ -542,7 +543,7 @@
 					eMF.createFirework(teams[team].color);
 				}, 100 + (Math.random()*2500));
 			}
-			var toLaunch = Math.floor(Math.random()*3) + 2;
+			var toLaunch = numberOfFireworks || Math.floor(Math.random()*3) + 2;
 			log('LAUNCHING ' + toLaunch + ' FIREWORKS');
 			for(var i = toLaunch; i > 0; i--) {
 				launchOne();
