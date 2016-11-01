@@ -503,7 +503,7 @@
 
 	//w.eMapFireworks = Fireworks;
 
-	var maxCount = 4,
+	var maxCount = 5,
 		teams = {
 			red: {
 				currentCount: 0,
@@ -529,7 +529,7 @@
 		log('LAUNCHING FIREWORKS', team);
 		var eMF = tMF || new Fireworks();
 		function launch(team) {
-			if (teams[team].currentCount > innerMaxCount){
+			if (teams[team].currentCount >= innerMaxCount){
 				log('DONE LAUNCHING');
 				teams[team].currentCount = 0;
 				teams[team].launching = false;
