@@ -259,10 +259,10 @@
 		 */
 		launchOnClick: function(){
 			eMap.aEL(eMap.qs('.egraph-d img'), 'click', function(){
-				w.launchFireworks('blue');
+				w.launchFireworks('blue', undefined, 1);
 			});
 			eMap.aEL(eMap.qs('.egraph-r img'), 'click', function(){
-				w.launchFireworks('red');
+				w.launchFireworks('red', undefined, 1);
 			});
 		}
 
