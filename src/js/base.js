@@ -251,6 +251,19 @@
 			}
 			eMap.aEL(close, 'click', closeWelcome);
 			eMap.aEL(w, 'click', closeWelcome);
+		},
+
+		/**
+		 * Launch fireworks for a candidate when their portrait is clicked
+		 * @return {void}
+		 */
+		launchOnClick: function(){
+			eMap.aEL(eMap.qs('.egraph-d img'), 'click', function(){
+				w.launchFireworks('blue');
+			});
+			eMap.aEL(eMap.qs('.egraph-r img'), 'click', function(){
+				w.launchFireworks('red');
+			});
 		}
 
 	};
