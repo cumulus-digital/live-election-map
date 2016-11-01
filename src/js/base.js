@@ -24,18 +24,18 @@
 		}
 	}
 
-	function writeToLog(ts, str, c) {
+	function writeToLog(timestamp, str, logClass) {
 		var log = eMap.qs('.emap-log'),
-			hash = eMap.intHash(ts + str);
+			hash = eMap.intHash(timestamp + str);
 		if (log.innerHTML.indexOf('data-hash="' + hash + '"') > -1) {
 			return;
 		}
 		var line = w.document.createElement('div');
 			line.setAttribute('data-hash', hash);
-			line.setAttribute('class', c);
+			line.setAttribute('class', logClass);
 		var time = w.document.createElement('time');
 			time.setAttribute('class', 'emap-log-ts');
-			time.setAttribute('datetime', ts.toDate().toISOString());
+			time.setAttribute('datetime', timestamp.toDate().toISOString());
 			line.appendChild(time);
 		var body = w.document.createElement('span');
 			body.setAttribute('class', 'emap-log-body');
