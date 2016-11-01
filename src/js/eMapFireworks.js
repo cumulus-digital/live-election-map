@@ -539,9 +539,11 @@
 			}
 			log('FIREWORKS VOLLEY ' + teams[team].currentCount);
 			function launchOne(){
+				// add a random pad to launch time unless we're specifically requesting a launch
+				var timeToLaunch = numberOfFireworks ? 0 : 100 + (Math.random()*2500);
 				setTimeout(function(){
 					eMF.createFirework(teams[team].color);
-				}, 100 + (Math.random()*2500));
+				}, timeToLaunch);
 			}
 			var toLaunch = numberOfFireworks || Math.floor(Math.random()*3) + 2;
 			log('LAUNCHING ' + toLaunch + ' FIREWORKS');
