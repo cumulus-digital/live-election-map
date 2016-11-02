@@ -111,7 +111,7 @@
 			}
 			
 			/.egraph-bar-d {
-				background: $color_D
+				background: alpha($color_D, 0.9);
 				span { right: 8px; }
 				
 				/.called-D & {
@@ -120,7 +120,7 @@
 				}
 			}
 			/.egraph-bar-r {
-				background: $color_R;
+				background: alpha($color_R, 0.9);
 				left: auto;
 				right: 0;
 				span { left: 8px; }
@@ -139,7 +139,7 @@
 			position: absolute;
 			top: 29%;
 			width: 0;
-			z-index: 3;
+			z-index: 1;
 		}
 		
 	}
