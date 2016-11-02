@@ -59,6 +59,7 @@ $font-family = 'Arvo', sans-serif;
 .emap-log-container {
 	font-size: 11px;
 	left: 50%;
+	margin-top: -15px;
 	position: absolute;
 	transform: translateX(-50%);
 	width: 40%;
@@ -97,14 +98,19 @@ $font-family = 'Arvo', sans-serif;
 		
 		&:first-child {
 			animation: none;
-			text-shadow: 1px 1px 1px #000;
 			opacity: 1;
+			text-shadow: 1px 1px 1px #000;
 		}
 		@keyframes fadeOutLog {
 			0% { opacity: 0.5 }
 			100% { opacity: 0.15 }
 		}
 		
+		&:nth-child(2) {
+			animation: none;
+			opacity: 0.8;
+			text-shadow: 1px 1px 1px #000;
+		}
 		&:nth-child(4):after {
 			background: linear-gradient(
 				to bottom,
