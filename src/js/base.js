@@ -291,7 +291,7 @@
 		});
 
 		// Start the data importer
-		eMI = new w.eMapImporter(ds, stateData, {autoInit: true});
+		eMI = new w.eMapImporter(ds, stateData, {autoInit: true, refreshTime: 120000});
 
 		// Start the tooltip handler
 		eMTT = new w.eMapToolTip();
