@@ -11,7 +11,7 @@
 	w.eMap = w.eMap || {};
 	var eMap = w.eMap;
 
-	var stateData = {}, eMI, eMTT, eMF, refreshAdsTimer,
+	var stateData = {}, eMI, eMTT, eMF,
 		activateCallingEffects = false;
 
 	function clearLog(){
@@ -237,30 +237,6 @@
 					bar = eMap.qs('.egraph-bar-d');
 					makeUpdate(bar, stateData.TOTALS.DVotes);
 				}
-			});
-		},
-
-		// Refresh ads when the graph is updated
-		refreshAds: function(){
-			eMap.aEL(w, 'emap.loaded', function(){
-				if ( ! activateCallingEffects || ! w.googletag || ! stateData.TOTALS) {
-					return;
-				}
-				try{
-					// Put the refresh in a timer as a simple debounce
-					clearTimeout(refreshAdsTimer);
-					refreshAdsTimer = null;
-					refreshAdsTimer = setTimeout(function(){
-						try{
-							w.googletag.cmd.push(function(){
-								try{
-									eMap.log('Refreshing ads.');
-									w.googletag.pubads().refresh();
-								} catch(e){}
-							});
-						} catch(e){}
-					}, 200);
-				} catch(e){}
 			});
 		},
 
