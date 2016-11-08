@@ -11,7 +11,7 @@
 	w.eMap = w.eMap || {};
 	var eMap = w.eMap;
 
-	var stateData = {}, eMI, eMTT, eMF,
+	var stateData = {}, eMI, eMTT, eMF, refreshAdsTimer,
 		activateCallingEffects = false;
 
 	function clearLog(){
@@ -240,6 +240,26 @@
 			});
 		},
 
+		// Refresh ads when the graph is updated
+		refreshAds: function(){
+			eMap.aEL(w, 'emap.loaded', function(){
+				if ( ! activateCallingEffects || ! w.googletag || ! stateData.TOTALS) {
+					return;
+				}
+				try{
+					// Put the refresh in a timer as a simple debounce
+					clearTimeout(refreshAdsTimer);
+					refreshAdsTimer = null;
+					refreshAdsTimer = setTimeout(function(){
+						w.googletag.cmd.push(function(){
+							eMap.log('Refreshing ads.');
+							w.googletag.pubads().refresh();
+						});
+					}, 200);
+				} catch(e){}
+			});
+		},
+
 		closeWelcome: function(){
 			var close = eMap.qs('.emap-w-close');
 			function closeWelcome(){
@@ -326,4 +346,4 @@
 	}
 	setInterval(updateLogTimes, 1000);
 
-}(window));
+}(window.self));
