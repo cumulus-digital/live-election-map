@@ -35,7 +35,7 @@
 		 * otherwise sub in our own.
 		 * @return {void}
 		 */
-		var log = window._CMLS ? window._CMLS.logger : (eMap && eMap.log) ? eMap.log : function(){
+		eMap.log = eMap.log || function(){
 			if ( ! eMap.DEBUG) { return; }
 			try {
 				var ts = (new Date()),
@@ -71,7 +71,7 @@
 			var originalData = stateData[state] || {};
 			stateData[state] = data;
 			eMI.fireEvent(w, 'emap.state.update', data);
-			log('Updating state [' + state + ']', originalData, data);
+			eMap.log('Updating state [' + state + ']', originalData, data);
 			if ( 
 				data.CalledFor &&
 				(
@@ -84,7 +84,7 @@
 					elVotes: data.ElVotes,
 					for: data.CalledFor
 				};
-				log('STATE CALLED', callData);
+				eMap.log('STATE CALLED', callData);
 				eMI.fireEvent(w, 'emap.state.called', callData);
 			}
 		}
@@ -97,10 +97,10 @@
 
 		function fetchData(){
 			if ( ! dataSource) {
-				log('No datasource provided.');
+				eMap.log('No datasource provided.');
 				return;
 			}
-			log('Fetching new data...');
+			eMap.log('Fetching new data...');
 			eMI.fireEvent(w, 'emap.loading');
 			clearFetchTimer();
 			eMI.settings.dataSource.reset();
@@ -124,7 +124,7 @@
 		this.forceFetchData = fetchData;
 
 		function parseData(){
-			log('Data received');
+			eMap.log('Data received');
 			fetchErrorCount = 0;
 
 			// Sort data by timestamp
@@ -140,11 +140,11 @@
 
 			var rows = eMI.settings.dataSource.rows(),
 				loaded = _.after(rows.length, function(){
-					log('New Totals: ', stateData.TOTALS);
+					eMap.log('New Totals: ', stateData.TOTALS);
 					if ( ! doc[hidden]) {
 						eMI.startFetchTimer();
 					} else {
-						log('Document is hidden, will not start timer.');
+						eMap.log('Document is hidden, will not start timer.');
 					}
 					eMI.fireEvent(w, 'emap.loaded');
 				});
@@ -155,7 +155,7 @@
 				LVotes: 0,
 				GVotes: 0
 			};
-			log('Pre-fetch Totals:', stateData.TOTALS);
+			eMap.log('Pre-fetch Totals:', stateData.TOTALS);
 
 			rows.each(function(row){
 				if (row.StateAbbr) {
@@ -179,7 +179,7 @@
 		eMI.startFetchTimer = function(forceTime){
 			if (eMI.settings.refreshTime) {
 				var mS = forceTime || eMI.settings.refreshTime + Math.floor(Math.random() * eMI.settings.randomPad);
-				log('Refreshing data in ' + mS/1000 + ' seconds.');
+				eMap.log('Refreshing data in ' + mS/1000 + ' seconds.');
 				fetchTimer = setTimeout(fetchData, mS);
 				refreshAtTime = new Date((new Date()).getTime() + mS);
 			}
@@ -210,7 +210,7 @@
 			var now = new Date();
 			if (doc[hidden]) {
 				if (fetchTimer){
-					log(
+					eMap.log(
 						'Tab is hidden.  Pausing timer with ' +
 						(
 							(refreshAtTime.getTime() - now.getTime())/1000 ||
@@ -229,7 +229,7 @@
 						eMI.startFetchTimer(setTime);
 						restartTimerNote = false;
 					} else {
-						log('Tab was focused after original refresh time, fetching new data immediately.');
+						eMap.log('Tab was focused after original refresh time, fetching new data immediately.');
 						fetchData();
 					}
 				} else {
@@ -250,14 +250,14 @@
 		var originalRandomPad = eMI.settings.randomPad;
 		w.addEventListener('blur', function(){
 			eMI.settings.randomPad = originalRandomPad*2;
-			log('Window lost focus, slowing down updates.', eMI.settings.refreshTime, eMI.settings.randomPad);
+			eMap.log('Window lost focus, slowing down updates.', eMI.settings.refreshTime, eMI.settings.randomPad);
 		});
 		w.addEventListener('focus', function(){
 			eMI.settings.randomPad = originalRandomPad;
-			log('Window regained focus, restoring original update speed.', eMI.settings.refreshTime, eMI.settings.randomPad);
+			eMap.log('Window regained focus, restoring original update speed.', eMI.settings.refreshTime, eMI.settings.randomPad);
 		});
 
-		log('eMapImporter initialized.');
+		eMap.log('eMapImporter initialized.');
 
 		eMI.init = function(){
 			fetchData();

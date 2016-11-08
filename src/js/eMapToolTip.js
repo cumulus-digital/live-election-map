@@ -22,7 +22,7 @@
 		 * otherwise sub in our own.
 		 * @return {void}
 		 */
-		var log = window._CMLS ? window._CMLS.logger : function(){
+		eMap.log = eMap.log || function(){
 			if ( ! eMap.DEBUG) { return; }
 			try {
 				var ts = (new Date()),
@@ -53,14 +53,14 @@
 		 */
 		TT.hide = function(){
 			hideTimer = setTimeout(function(){
-				log('Hiding tooltip.');
+				eMap.log('Hiding tooltip.');
 				templateContainer.style.display = 'none';
 				TT.clearTooltip();
 			}, 100);
 			stopFollowing();
 		};
 		TT.show = function(){
-			log('Displaying tooltip');
+			eMap.log('Displaying tooltip');
 			clearTimeout(hideTimer);
 			hideTimer = null;
 			templateContainer.style.display = 'block';
@@ -77,7 +77,7 @@
 			if (templateContainer.currentState === data.State) {
 				return TT;
 			}
-			log('Received new data for tooltip', data);
+			eMap.log('Received new data for tooltip', data);
 			templateContainer.className = '';
 			var zones = [].slice.call(qsa('[data-var]', templateContainer));
 			zones.forEach(function(zone){
@@ -90,7 +90,7 @@
 					zone.innerText = 'Updated ' + data[v].fromNow();
 					return;
 				}
-				log(v, data[v]);
+				eMap.log(v, data[v]);
 				if (data[v] === 'NOTONBALLOT' && v.indexOf('Votes') > -1) {
 					templateContainer.className += ' hide-' + v.substr(0,1);
 				}

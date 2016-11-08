@@ -4,7 +4,8 @@
  */
 ;(function(window, undefined){
 	var w = window,
-		doc = w.document;
+		doc = w.document,
+		eMap = eMap || {};
 
 	w.requestAnimFrame = (function(){
 		return  w.requestAnimationFrame       ||
@@ -22,7 +23,7 @@
 	 * otherwise sub in our own.
 	 * @return {void}
 	 */
-	var log = window._CMLS ? window._CMLS.logger : (w.eMap && w.eMap.log) ? w.eMap.log : function(){
+	eMap.log = eMap.log || function(){
 		if ( w.eMap && ! w.eMap.DEBUG) { return; }
 		try {
 			var ts = (new Date()),
@@ -232,7 +233,7 @@
 		};
 
 		this.destroy = function destroy(){
-			log('Destroying previously created fireworks canvas.');
+			eMap.log('Destroying previously created fireworks canvas.');
 			mainCanvas.parentNode.removeChild(mainCanvas);
 			w.removeEventListener('resize', resizeHandler);
 		};
@@ -356,7 +357,7 @@
 		w.addEventListener('resize', resizeHandler);
 
 		// create a canvas for the fireworks
-		log('CREATING NEW CANVAS');
+		eMap.log('CREATING NEW CANVAS');
 		mainCanvas = doc.createElement('canvas');
 		mainCanvas.id = 'mainFireworksCanvas' + Math.floor(Math.random()*1000000);
 		mainCanvas.style.position = 'absolute';
@@ -523,21 +524,21 @@
 		var innerMaxCount = numberOfFireworks || maxCount;
 		teams[team].currentCount = 0;
 		if (teams[team].launching) {
-			log('TEAM IS ALREADY LAUNCHING');
+			eMap.log('TEAM IS ALREADY LAUNCHING');
 			return;
 		}
-		log('LAUNCHING FIREWORKS', team);
+		eMap.log('LAUNCHING FIREWORKS', team);
 		var eMF = tMF || new Fireworks();
 		function launch(team) {
 			if (teams[team].currentCount >= innerMaxCount){
-				log('DONE LAUNCHING');
+				eMap.log('DONE LAUNCHING');
 				teams[team].currentCount = 0;
 				teams[team].launching = false;
 				clearTimeout(teams[team].timer);
 				teams[team].timer = null;
 				return;
 			}
-			log('FIREWORKS VOLLEY ' + teams[team].currentCount);
+			eMap.log('FIREWORKS VOLLEY ' + teams[team].currentCount);
 			function launchOne(){
 				// add a random pad to launch time unless we're specifically requesting a launch
 				var timeToLaunch = numberOfFireworks ? 0 : 100 + (Math.random()*2500);
@@ -546,7 +547,7 @@
 				}, timeToLaunch);
 			}
 			var toLaunch = numberOfFireworks || Math.floor(Math.random()*3) + 2;
-			log('LAUNCHING ' + toLaunch + ' FIREWORKS');
+			eMap.log('LAUNCHING ' + toLaunch + ' FIREWORKS');
 			for(var i = toLaunch; i > 0; i--) {
 				launchOne();
 			}
