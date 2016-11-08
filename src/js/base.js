@@ -251,10 +251,14 @@
 					clearTimeout(refreshAdsTimer);
 					refreshAdsTimer = null;
 					refreshAdsTimer = setTimeout(function(){
-						w.googletag.cmd.push(function(){
-							eMap.log('Refreshing ads.');
-							w.googletag.pubads().refresh();
-						});
+						try{
+							w.googletag.cmd.push(function(){
+								try{
+									eMap.log('Refreshing ads.');
+									w.googletag.pubads().refresh();
+								} catch(e){}
+							});
+						} catch(e){}
 					}, 200);
 				} catch(e){}
 			});
