@@ -241,6 +241,9 @@
 		},
 
 		closeWelcome: function(){
+			if (document.cookie.indexOf('emap16-closed') > -1){
+				eMap.qs('.emap-welcome').style.display = 'none';
+			}
 			var close = eMap.qs('.emap-w-close');
 			function closeWelcome(){
 				eMap.log('Closing welcome message.');
@@ -268,10 +271,6 @@
 		}
 
 	};
-
-	if (document.cookie.indexOf('emap16-closed') > -1){
-		eMap.qs('.emap-welcome').style.display = 'none';
-	}
 
 	// The room where it happens
 	w.eMapInit = function(){
