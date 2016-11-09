@@ -244,6 +244,7 @@
 			var close = eMap.qs('.emap-w-close');
 			function closeWelcome(){
 				eMap.log('Closing welcome message.');
+				document.cookie = 'emap16-closed=true';
 				var welcome = eMap.qs('.emap-welcome');
 				eMap.addClass(welcome, 'emap-closed');
 				eMap.rEL(close, 'click', closeWelcome);
@@ -267,6 +268,10 @@
 		}
 
 	};
+
+	if (document.cookie.indexOf('emap16-closed') > -1){
+		eMap.qs('.emap-welcome').style.display = 'none';
+	}
 
 	// The room where it happens
 	w.eMapInit = function(){
@@ -305,6 +310,20 @@
 		}
 
 	};
+
+	/**
+	 * Reload the page every hour
+	 */
+	function reloadPage(){
+		var now = new Date(),
+			href = w.location.href.replace(/\?.*/,'') + '?' + now.getTime();
+		if (w.tgmp) {
+			w.tgmp.updateLocation(href);
+			return;
+		}
+		w.location.href = href;
+	}
+	setTimeout(reloadPage, 3600000);
 
 	/**
 	 * Update display times in log every second
