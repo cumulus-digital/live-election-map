@@ -185,8 +185,8 @@
 						yAxis,
 						1
 					);
-				gradient.addColorStop(0,"hsla(" + Math.round(c * 3.6) + ", 150%, 0%, 0");
-				gradient.addColorStop(1,"hsla(" + Math.round(c * 3.6) + ", 100%, 60%, 1");
+				gradient.addColorStop(0,"hsla(" + Math.round(c * 3.6) + ", 150%, 0%, 0)");
+				gradient.addColorStop(1,"hsla(" + Math.round(c * 3.6) + ", 100%, 60%, 1)");
 				fireworkContext.fillStyle = gradient;
 				fireworkContext.fillRect(gridX, gridY, gridSize, gridSize);
 				/*
