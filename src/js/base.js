@@ -322,7 +322,7 @@
 		}
 		w.location.href = href;
 	}
-	setTimeout(reloadPage, 6000);
+	setTimeout(reloadPage, 3600000);
 
 	/**
 	 * Update display times in log every second
